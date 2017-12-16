@@ -1,24 +1,25 @@
 package it.giannig.kotlinpopularmovies
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.Serializable
 
 
 data class User(
         val name: String,
         val url: String = "http://www.ristorantepaguro.it/images/centrino.jpg"
-)
+) : Serializable
+
+val EXTRA_USER = "image_url_data"
+val TAG = "MAIN_ACTIVITY"
 
 class MainActivity : AppCompatActivity() {
-
-    @JvmField val TAG = "MAIN_ACTIVITY"
 
     private val ctx = this
 
@@ -30,16 +31,24 @@ class MainActivity : AppCompatActivity() {
             User("Giorgio", "http://crazyforclashofclans.altervista.org/wp-content/uploads/2015/08/250px-Builder.png"),
             User("Nicola"),
             User("Davide"),
-            User("Polacco", "https://ih1.redbubble.net/image.176691509.2899/sticker,375x360-bg,ffffff.u1.png")
+            User("Polacco", "https://ih1.redbubble.net/image.176691509.2899/sticker,375x360-bg,ffffff.u1.png"),
+            User("Alessio"),
+            User("Annalina"),
+            User("Ilaria")
     )
 
     private val onClick: (User, Context) -> Unit = {
         user, context ->
         Toast.makeText(
                 context,
-                "received ${user.name}",
+                "opening ${user.name} card...",
                 Toast.LENGTH_SHORT
         ).show()
+
+        val intent = Intent(this, UserDetailActivity::class.java)
+        intent.putExtra(EXTRA_USER, user as Serializable)
+        startActivity(intent)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
