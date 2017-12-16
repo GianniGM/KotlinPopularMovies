@@ -7,13 +7,21 @@ import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+data class User(val name: String, val imageLink: String = "https://vignette.wikia.nocookie.net/fantendo/images/6/6e/Small-mario.png/revision/latest?cb=20120718024112")
 
 class MainActivity : AppCompatActivity() {
 
-
     @JvmField val TAG = "MAIN_ACTIVITY"
 
-    private val mockedData = arrayOf("Gianni", "Lorena", "Daniela", "Giorgio", "Nicola", "Davide")
+    private val mockedData = arrayOf(
+            User("Gianni"),
+            User("Lorena"),
+            User("Daniela"),
+            User("Giorgio"),
+            User("Nicola"),
+            User("Davide")
+    )
+
     private val ctx = this
 
     override fun onCreate(savedInstanceState: Bundle?) {

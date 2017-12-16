@@ -13,7 +13,7 @@ import android.widget.Toast
  * Created by giannig on 20/11/17.
  */
 
-class MovieAdapter(private val items: Array<String>, private val onMovieClick: (Int) -> Unit)
+class MovieAdapter(private val items: Array<User>, private val onMovieClick: (Int) -> Unit)
     : RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>() {
 
     @JvmField val TAG = "MovieAdapter"
@@ -33,7 +33,7 @@ class MovieAdapter(private val items: Array<String>, private val onMovieClick: (
         val inflater = LayoutInflater.from(ctx)
         val v = inflater.inflate(R.layout.main_element, parent, false)
 
-        return MovieAdapterViewHolder(v, onMovieClick)
+        return MovieAdapterViewHolder(v)
     }
 
     override fun getItemCount(): Int {
@@ -41,22 +41,28 @@ class MovieAdapter(private val items: Array<String>, private val onMovieClick: (
     }
 
     override fun onBindViewHolder(holder: MovieAdapterViewHolder?, position: Int) {
-        currentValue = items[position]
+        currentValue = items[position].name
         holder?.setTextElement(currentValue)
     }
 
-    class MovieAdapterViewHolder(private var view: View, private var onMovieClick: (Int) -> Unit) :
-            RecyclerView.ViewHolder(view),
-            View.OnClickListener {
+    class MovieAdapterViewHolder(private val view: View):
+            RecyclerView.ViewHolder(view){
 
-        override fun onClick(p0: View?) {
-            Log.d("ON_CLICK", "CLIKED")
-            onMovieClick(adapterPosition)
+        @JvmField val TAG = "MovieViewHolder"
+
+        private fun onClick(message: String){
+            Log.d(TAG,"received $message")
+            Toast.makeText(
+                    view.context,
+                    "received $message",
+                    Toast.LENGTH_SHORT
+            ).show()
         }
 
         fun setTextElement(message: String) {
             val text = view.findViewById<TextView>(R.id.element_text)
             text.text = message
+            view.setOnClickListener { onClick(message) }
         }
     }
 }
