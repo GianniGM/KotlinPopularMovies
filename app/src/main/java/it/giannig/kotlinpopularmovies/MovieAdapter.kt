@@ -20,14 +20,6 @@ class MovieAdapter(private val items: Array<User>, private val onMovieClick: (In
 
     @JvmField val TAG = "MovieAdapter"
 
-//    init {
-//        Log.d(TAG, "STARTED MOVIE ADAPTER")
-//    }
-//    COSTRUTTORE INUTILE, SERVE SOLTANTO A FAR CAPRIE COME SI AGGIUNGE IL SECONDO COSTRUTTORE
-//    constructor(items: Array<String>, ctx: Context, intero: Int) : this(items, ctx) {
-//        Log.d(TAG, "QUESTO COSTRUTTORE É INUTILE")
-//    }
-
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MovieAdapterViewHolder {
         val ctx = parent?.context
         val inflater = LayoutInflater.from(ctx)
