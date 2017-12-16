@@ -7,7 +7,12 @@ import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-data class User(val name: String, val imageLink: String = "https://vignette.wikia.nocookie.net/fantendo/images/6/6e/Small-mario.png/revision/latest?cb=20120718024112")
+
+
+data class User(
+        val name: String,
+        val url: String = "https://vignette.wikia.nocookie.net/fantendo/images/6/6e/Small-mario.png/revision/latest?cb=20120718024112"
+)
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             User("Gianni"),
             User("Lorena"),
             User("Daniela"),
-            User("Giorgio"),
+            User("Giorgio", "http://i.imgur.com/DvpvklR.png"),
             User("Nicola"),
             User("Davide")
     )

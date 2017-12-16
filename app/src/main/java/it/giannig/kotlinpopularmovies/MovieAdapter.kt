@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.squareup.picasso.Picasso
 
 /**
  * Created by giannig on 20/11/17.
@@ -17,8 +19,6 @@ class MovieAdapter(private val items: Array<User>, private val onMovieClick: (In
     : RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>() {
 
     @JvmField val TAG = "MovieAdapter"
-
-    var currentValue = ""
 
 //    init {
 //        Log.d(TAG, "STARTED MOVIE ADAPTER")
@@ -41,8 +41,9 @@ class MovieAdapter(private val items: Array<User>, private val onMovieClick: (In
     }
 
     override fun onBindViewHolder(holder: MovieAdapterViewHolder?, position: Int) {
-        currentValue = items[position].name
-        holder?.setTextElement(currentValue)
+        val user =items[position]
+        holder?.setTextElement(user.name)
+        holder?.setImage(user.url)
     }
 
     class MovieAdapterViewHolder(private val view: View):
@@ -63,6 +64,14 @@ class MovieAdapter(private val items: Array<User>, private val onMovieClick: (In
             val text = view.findViewById<TextView>(R.id.element_text)
             text.text = message
             view.setOnClickListener { onClick(message) }
+        }
+
+        fun setImage(imageUrl: String){
+            val imageView = view.findViewById<ImageView>(R.id.image_view_element)
+
+            Picasso.with(view.context)
+                    .load(imageUrl)
+                    .into(imageView)
         }
     }
 }

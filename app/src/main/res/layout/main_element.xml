@@ -11,6 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/provakotlin"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        />
+
+    <ImageView
+        android:id="@+id/image_view_element"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/picture_of_super_mario" />
 
 </android.support.constraint.ConstraintLayout>
