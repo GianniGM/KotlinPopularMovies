@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="it.giannig.kotlinpopularmovies.MovieAdapter">
+    android:orientation="horizontal"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/image_view_element"
+        android:layout_height="64dp"
+        android:layout_width="64dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/picture_of_super_mario"
+        />
 
     <TextView
         android:id="@+id/element_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="@string/provakotlin"
         android:layout_margin="8dp"
         />
-
-    <ImageView
-        android:id="@+id/image_view_element"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/picture_of_super_mario" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
