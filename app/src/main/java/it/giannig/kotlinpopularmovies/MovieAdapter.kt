@@ -1,5 +1,6 @@
 package it.giannig.kotlinpopularmovies
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 
 /**
  * Created by giannig on 20/11/17.
  */
 
-class MovieAdapter(private val items: Array<User>, private val onMovieClick: (Int) -> Unit)
+class MovieAdapter(private val items: Array<User>, private val onElementClick: (User, Context) -> Unit)
     : RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>() {
 
     @JvmField val TAG = "MovieAdapter"
@@ -32,9 +32,15 @@ class MovieAdapter(private val items: Array<User>, private val onMovieClick: (In
     }
 
     override fun onBindViewHolder(holder: MovieAdapterViewHolder?, position: Int) {
-        val user =items[position]
-        holder?.setTextElement(user.name)
+        val user=items[position]
+        holder?.setText(user.name)
         holder?.setImage(user.url)
+
+        holder?.setOnClick {
+            context ->
+            Log.d(TAG,"received ${user.name}")
+            onElementClick(user, context)
+        }
     }
 
     class MovieAdapterViewHolder(private val view: View):
@@ -42,19 +48,13 @@ class MovieAdapter(private val items: Array<User>, private val onMovieClick: (In
 
         @JvmField val TAG = "MovieViewHolder"
 
-        private fun onClick(message: String){
-            Log.d(TAG,"received $message")
-            Toast.makeText(
-                    view.context,
-                    "received $message",
-                    Toast.LENGTH_SHORT
-            ).show()
-        }
-
-        fun setTextElement(message: String) {
+        fun setText(message: String) {
             val text = view.findViewById<TextView>(R.id.element_text)
             text.text = message
-            view.setOnClickListener { onClick(message) }
+        }
+
+        fun setOnClick(onClick: (Context)->Unit){
+            view.setOnClickListener { onClick(view.context) }
         }
 
         fun setImage(imageUrl: String){

@@ -13,23 +13,34 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 data class User(
         val name: String,
-        val url: String = "https://upload.wikimedia.org/wikipedia/commons/b/b4/JPEG_example_JPG_RIP_100.jpg"
+        val url: String = "http://www.ristorantepaguro.it/images/centrino.jpg"
 )
 
 class MainActivity : AppCompatActivity() {
 
     @JvmField val TAG = "MAIN_ACTIVITY"
 
+    private val ctx = this
+
+    //todo: da sostituire con la API
     private val mockedData = arrayOf(
             User("Gianni"),
             User("Lorena"),
             User("Daniela"),
-            User("Giorgio", "http://i.imgur.com/DvpvklR.png"),
+            User("Giorgio", "http://crazyforclashofclans.altervista.org/wp-content/uploads/2015/08/250px-Builder.png"),
             User("Nicola"),
-            User("Davide")
+            User("Davide"),
+            User("Polacco", "https://ih1.redbubble.net/image.176691509.2899/sticker,375x360-bg,ffffff.u1.png")
     )
 
-    private val ctx = this
+    private val onClick: (User, Context) -> Unit = {
+        user, context ->
+        Toast.makeText(
+                context,
+                "received ${user.name}",
+                Toast.LENGTH_SHORT
+        ).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager = GridLayoutManager(this, calculateColumns())
         main_recycler_view.layoutManager = layoutManager
-        main_recycler_view.adapter = MovieAdapter(
-                mockedData,
-                { counter:Int ->
-                    Toast.makeText(
-                            ctx,
-                            "received $counter",
-                            Toast.LENGTH_SHORT
-                    ).show()
-                }
-        )
+        main_recycler_view.adapter = MovieAdapter(mockedData, this.onClick)
     }
 
     private fun calculateColumns(): Int {
