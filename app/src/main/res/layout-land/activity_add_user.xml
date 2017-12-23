@@ -11,34 +11,38 @@
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/person_image" />
 
     <EditText
         android:id="@+id/text_surname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/insert_surname"
-        app:layout_constraintEnd_toEndOf="@+id/person_image"
-        app:layout_constraintStart_toStartOf="@+id/person_image"
-        app:layout_constraintTop_toBottomOf="@+id/person_image" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/person_image"
+        app:layout_constraintTop_toTopOf="@+id/person_image" />
 
     <EditText
         android:id="@+id/text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/insert_name"
+        app:layout_constraintBottom_toBottomOf="@+id/person_image"
         app:layout_constraintEnd_toEndOf="@+id/text_surname"
         app:layout_constraintStart_toStartOf="@+id/text_surname"
         app:layout_constraintTop_toBottomOf="@+id/text_surname" />
@@ -47,10 +51,10 @@
         android:id="@+id/person_image"
         android:layout_width="207dp"
         android:layout_height="171dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_user" />

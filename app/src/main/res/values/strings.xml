@@ -7,4 +7,6 @@
     <string name="immagine_di_prova">Immagine di prova</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="submit">Submit</string>
+    <string name="insert_name">Insert Name</string>
+    <string name="insert_surname">Insert surname</string>
 </resources>
