@@ -1,4 +1,4 @@
-package it.giannig.kotlinpopularmovies
+package it.giannig.kotlinsamples
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -17,7 +17,9 @@ import com.squareup.picasso.Picasso
 class MovieAdapter(private val items: Array<User>, private val onElementClick: (User, Context) -> Unit)
     : RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>() {
 
-    @JvmField val TAG = "MovieAdapter"
+    companion object {
+        const val TAG = "MovieAdapter"
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MovieAdapterViewHolder {
         val ctx = parent?.context
@@ -32,32 +34,33 @@ class MovieAdapter(private val items: Array<User>, private val onElementClick: (
     }
 
     override fun onBindViewHolder(holder: MovieAdapterViewHolder?, position: Int) {
-        val user=items[position]
+        val user = items[position]
         holder?.setText(user.name)
         holder?.setImage(user.url)
 
-        holder?.setOnClick {
-            context ->
-            Log.d(TAG,"received ${user.name}")
+        holder?.setOnClick { context ->
+            Log.d(TAG, "received ${user.name}")
             onElementClick(user, context)
         }
     }
 
-    class MovieAdapterViewHolder(private val view: View):
-            RecyclerView.ViewHolder(view){
+    class MovieAdapterViewHolder(private val view: View) :
+            RecyclerView.ViewHolder(view) {
 
-        @JvmField val TAG = "MovieViewHolder"
+        companion object {
+            const val TAG = "MovieViewHolder"
+        }
 
         fun setText(message: String) {
             val text = view.findViewById<TextView>(R.id.element_text)
             text.text = message
         }
 
-        fun setOnClick(onClick: (Context)->Unit){
+        fun setOnClick(onClick: (Context) -> Unit) {
             view.setOnClickListener { onClick(view.context) }
         }
 
-        fun setImage(imageUrl: String){
+        fun setImage(imageUrl: String) {
             val imageView = view.findViewById<ImageView>(R.id.image_view_element)
 
             Picasso.with(view.context)

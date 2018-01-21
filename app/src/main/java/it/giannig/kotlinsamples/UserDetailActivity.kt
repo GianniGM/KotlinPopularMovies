@@ -1,12 +1,9 @@
-package it.giannig.kotlinpopularmovies
-import android.app.Activity
-import android.content.Intent
-import kotlinx.android.synthetic.main.activity_user_detail.*
+package it.giannig.kotlinsamples
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.support.v7.app.AppCompatActivity
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_user_detail.*
 
 class UserDetailActivity : AppCompatActivity() {
 

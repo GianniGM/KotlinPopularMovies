@@ -1,4 +1,4 @@
-package it.giannig.kotlinpopularmovies
+package it.giannig.kotlinsamples
 
 import org.junit.Test
 

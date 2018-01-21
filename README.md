@@ -1,2 +1,3 @@
-# KotlinPopularMovies
-a Popular Movies App Kotlin version
+# Kotlin Samples App
+
+A bunch of kotlin samples united in a unique pointless app

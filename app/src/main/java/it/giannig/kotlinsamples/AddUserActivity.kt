@@ -1,14 +1,15 @@
-package it.giannig.kotlinpopularmovies
+package it.giannig.kotlinsamples
 
 import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_user.*
 import java.io.Serializable
 
-val PICK_IMAGE = 1;
+const val PHOTO_PICKER_ID = 1
 
 class AddUserActivity : AppCompatActivity() {
 
@@ -20,7 +21,7 @@ class AddUserActivity : AppCompatActivity() {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PHOTO_PICKER_ID)
         }
 
         submit_button.setOnClickListener {
@@ -32,7 +33,11 @@ class AddUserActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if( requestCode == PICK_IMAGE)
-            Log.d("PICK_IMAGE", "image picked")
+        if (requestCode == PHOTO_PICKER_ID) {
+            Log.d("PICK_IMAGE", "resultCode: $resultCode, image picked: ${data?.data}")
+            Picasso.with(this)
+                    .load(data?.data)
+                    .into(person_image)
+        }
     }
 }

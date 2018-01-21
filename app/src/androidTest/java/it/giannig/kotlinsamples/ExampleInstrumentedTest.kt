@@ -1,4 +1,4 @@
-package it.giannig.kotlinpopularmovies
+package it.giannig.kotlinsamples
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

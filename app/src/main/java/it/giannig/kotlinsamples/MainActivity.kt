@@ -1,14 +1,11 @@
-package it.giannig.kotlinpopularmovies
+package it.giannig.kotlinsamples
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
@@ -19,12 +16,15 @@ data class User(
         val url: String = "http://www.ristorantepaguro.it/images/centrino.jpg"
 ) : Serializable
 
-val EXTRA_USER = "image_url_data"
-val EXTRA_ADD_USER = "add_user_data"
-val TAG = "MAIN_ACTIVITY"
-val ADD_USER_REQUEST_CODE = 0
+const val EXTRA_USER = "image_url_data"
+const val EXTRA_ADD_USER = "add_user_data"
+const val ADD_USER_REQUEST_CODE = 0
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val TAG = "MAIN_ACTIVITY"
+    }
 
     private val ctx = this
 
@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager = GridLayoutManager(this, calculateColumns())
         main_recycler_view.layoutManager = layoutManager
-        main_recycler_view.adapter = MovieAdapter(mockedData){ user, _ -> this.onClick(user)}
-        fab.setOnClickListener{ this.onFabClick() }
+        main_recycler_view.adapter = MovieAdapter(mockedData) { user, _ -> this.onClick(user) }
+        fab.setOnClickListener { this.onFabClick() }
     }
 
     private fun onClick(user: User) {
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "request code: $requestCode, resultCode: $resultCode/${data?.extras?.get(EXTRA_ADD_USER)}")
 
         var newUser = User("no_name")
-        when (requestCode){
+        when (requestCode) {
             ADD_USER_REQUEST_CODE -> when (resultCode) {
                 Activity.RESULT_OK -> newUser = data?.extras?.get(EXTRA_ADD_USER) as User
                 Activity.RESULT_CANCELED -> Toast.makeText(this,
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun onFabClick(){
+    private fun onFabClick() {
         val intent = Intent(this, AddUserActivity::class.java)
         startActivityForResult(intent, ADD_USER_REQUEST_CODE)
     }
