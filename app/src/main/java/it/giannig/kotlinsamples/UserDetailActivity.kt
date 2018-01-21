@@ -14,7 +14,7 @@ class UserDetailActivity : AppCompatActivity() {
         val user = intent.extras.get(EXTRA_USER) as User
 
         Picasso.with(this)
-                .load(user.url)
+                .load(user.image)
                 .into(user_image)
 
         user_name.text = user.name

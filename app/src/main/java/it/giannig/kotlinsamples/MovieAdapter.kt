@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso
 /**
  * Created by giannig on 20/11/17.
  */
-
-class MovieAdapter(private val items: Array<User>, private val onElementClick: (User, Context) -> Unit)
+// TODO: IT'S TIME TO ADD AN OBSERVABLE FOR UPDATE RECYCLERVIEW
+class MovieAdapter(private val items: List<User>, private val onElementClick: (User, Context) -> Unit)
     : RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>() {
 
     companion object {
@@ -36,7 +36,7 @@ class MovieAdapter(private val items: Array<User>, private val onElementClick: (
     override fun onBindViewHolder(holder: MovieAdapterViewHolder?, position: Int) {
         val user = items[position]
         holder?.setText(user.name)
-        holder?.setImage(user.url)
+        holder?.setImage(user.image)
 
         holder?.setOnClick { context ->
             Log.d(TAG, "received ${user.name}")
@@ -60,7 +60,7 @@ class MovieAdapter(private val items: Array<User>, private val onElementClick: (
             view.setOnClickListener { onClick(view.context) }
         }
 
-        fun setImage(imageUrl: String) {
+        fun setImage(imageUrl: String?) {
             val imageView = view.findViewById<ImageView>(R.id.image_view_element)
 
             Picasso.with(view.context)

@@ -2,6 +2,7 @@ package it.giannig.kotlinsamples
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -12,8 +13,9 @@ import java.io.Serializable
 
 
 data class User(
-        val name: String,
-        val url: String = "http://www.ristorantepaguro.it/images/centrino.jpg"
+        val name: String = "",
+        val surname: String = "",
+        var image: String?
 ) : Serializable
 
 const val EXTRA_USER = "image_url_data"
@@ -22,25 +24,26 @@ const val ADD_USER_REQUEST_CODE = 0
 
 class MainActivity : AppCompatActivity() {
 
+    private val ctx = this
+    private val data: ArrayList<User> = ArrayList()
+
     companion object {
         const val TAG = "MAIN_ACTIVITY"
     }
 
-    private val ctx = this
-
     //todo: da sostituire con la API
-    private val mockedData = arrayOf(
-            User("Gianni"),
-            User("Lorena"),
-            User("Daniela"),
-            User("Giorgio", "http://crazyforclashofclans.altervista.org/wp-content/uploads/2015/08/250px-Builder.png"),
-            User("Nicola"),
-            User("Davide"),
-            User("Polacco", "https://ih1.redbubble.net/image.176691509.2899/sticker,375x360-bg,ffffff.u1.png"),
-            User("Alessio"),
-            User("Annalina"),
-            User("Ilaria")
-    )
+//    private val mockedData = arrayOf(
+//            User("Gianni"),
+//            User("Lorena"),
+//            User("Daniela"),
+//            User("Giorgio", "http://crazyforclashofclans.altervista.org/wp-content/uploads/2015/08/250px-Builder.png"),
+//            User("Nicola"),
+//            User("Davide"),
+//            User("Polacco", "https://ih1.redbubble.net/image.176691509.2899/sticker,375x360-bg,ffffff.u1.png"),
+//            User("Alessio"),
+//            User("Annalina"),
+//            User("Ilaria")
+//    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager = GridLayoutManager(this, calculateColumns())
         main_recycler_view.layoutManager = layoutManager
-        main_recycler_view.adapter = MovieAdapter(mockedData) { user, _ -> this.onClick(user) }
+        main_recycler_view.adapter = MovieAdapter(data) { user, _ -> this.onClick(user) }
         fab.setOnClickListener { this.onFabClick() }
     }
 
@@ -62,10 +65,16 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, "request code: $requestCode, resultCode: $resultCode/${data?.extras?.get(EXTRA_ADD_USER)}")
 
-        var newUser = User("no_name")
         when (requestCode) {
             ADD_USER_REQUEST_CODE -> when (resultCode) {
-                Activity.RESULT_OK -> newUser = data?.extras?.get(EXTRA_ADD_USER) as User
+                Activity.RESULT_OK -> {
+                    val newUser = data?.extras?.get(EXTRA_ADD_USER) as User
+                    this.data.add(newUser)
+                    Toast.makeText(this,
+                            "we have new user here ${newUser.name}",
+                            Toast.LENGTH_LONG
+                    ).show()
+                }
                 Activity.RESULT_CANCELED -> Toast.makeText(this,
                         "Aborted, changed will not save",
                         Toast.LENGTH_SHORT).show()
@@ -73,11 +82,6 @@ class MainActivity : AppCompatActivity() {
             }
             else -> Log.e(TAG, "request code is not exists")
         }
-
-        Toast.makeText(this,
-                "we have new user here ${newUser.name}",
-                Toast.LENGTH_LONG
-        ).show()
     }
 
     private fun onFabClick() {

@@ -13,6 +13,8 @@ const val PHOTO_PICKER_ID = 1
 
 class AddUserActivity : AppCompatActivity() {
 
+    private var image: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_user)
@@ -26,7 +28,9 @@ class AddUserActivity : AppCompatActivity() {
 
         submit_button.setOnClickListener {
             val intent = Intent()
-            intent.putExtra(EXTRA_ADD_USER, User("ciccio") as Serializable)
+            val name = text_name.text.toString()
+            val surname = text_surname.text.toString()
+            intent.putExtra(EXTRA_ADD_USER, User(name, surname, this.image) as Serializable)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -38,6 +42,7 @@ class AddUserActivity : AppCompatActivity() {
             Picasso.with(this)
                     .load(data?.data)
                     .into(person_image)
+            this.image = data?.data.toString()
         }
     }
 }
