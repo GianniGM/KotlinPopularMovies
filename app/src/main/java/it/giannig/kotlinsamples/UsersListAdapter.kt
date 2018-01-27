@@ -13,27 +13,32 @@ import com.squareup.picasso.Picasso
 /**
  * Created by giannig on 20/11/17.
  */
-// TODO: IT'S TIME TO ADD AN OBSERVABLE FOR UPDATE RECYCLERVIEW
-class MovieAdapter(private val items: List<User>, private val onElementClick: (User, Context) -> Unit)
-    : RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>() {
+
+class UsersListAdapter(private var items: List<User>, private val onElementClick: (User, Context) -> Unit)
+    : RecyclerView.Adapter<UsersListAdapter.UsersListAdapterViewHolder>() {
 
     companion object {
-        const val TAG = "MovieAdapter"
+        const val TAG = "UsersListAdapter"
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MovieAdapterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): UsersListAdapterViewHolder {
         val ctx = parent?.context
         val inflater = LayoutInflater.from(ctx)
         val v = inflater.inflate(R.layout.main_element, parent, false)
 
-        return MovieAdapterViewHolder(v)
+        return UsersListAdapterViewHolder(v)
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    override fun onBindViewHolder(holder: MovieAdapterViewHolder?, position: Int) {
+    fun switchList(newList : List<User>){
+        this.items = newList
+        notifyDataSetChanged()
+    }
+
+    override fun onBindViewHolder(holder: UsersListAdapterViewHolder?, position: Int) {
         val user = items[position]
         holder?.setText(user.name)
         holder?.setImage(user.image)
@@ -44,7 +49,7 @@ class MovieAdapter(private val items: List<User>, private val onElementClick: (U
         }
     }
 
-    class MovieAdapterViewHolder(private val view: View) :
+    class UsersListAdapterViewHolder(private val view: View) :
             RecyclerView.ViewHolder(view) {
 
         companion object {
