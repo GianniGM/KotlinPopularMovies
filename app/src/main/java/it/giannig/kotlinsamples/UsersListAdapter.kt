@@ -40,7 +40,7 @@ class UsersListAdapter(private var items: List<User>, private val onElementClick
 
     override fun onBindViewHolder(holder: UsersListAdapterViewHolder?, position: Int) {
         val user = items[position]
-        holder?.setText(user.name)
+        holder?.setText(user.name, user.surname)
         holder?.setImage(user.image)
 
         holder?.setOnClick { context ->
@@ -52,13 +52,17 @@ class UsersListAdapter(private var items: List<User>, private val onElementClick
     class UsersListAdapterViewHolder(private val view: View) :
             RecyclerView.ViewHolder(view) {
 
+        private val textName = view.findViewById<TextView>(R.id.element_text_name)!!
+        private val textSurname = view.findViewById<TextView>(R.id.element_text_surname)!!
+        private val userImage = view.findViewById<ImageView>(R.id.image_view_element)!!
+
         companion object {
             const val TAG = "MovieViewHolder"
         }
 
-        fun setText(message: String) {
-            val text = view.findViewById<TextView>(R.id.element_text)
-            text.text = message
+        fun setText(name: String, surname: String) {
+            textName.text = name
+            textSurname.text = surname
         }
 
         fun setOnClick(onClick: (Context) -> Unit) {
@@ -66,11 +70,9 @@ class UsersListAdapter(private var items: List<User>, private val onElementClick
         }
 
         fun setImage(imageUrl: String?) {
-            val imageView = view.findViewById<ImageView>(R.id.image_view_element)
-
             Picasso.with(view.context)
                     .load(imageUrl)
-                    .into(imageView)
+                    .into(userImage)
         }
     }
 }

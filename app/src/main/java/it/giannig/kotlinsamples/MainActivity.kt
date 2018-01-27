@@ -9,7 +9,6 @@ import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
-import kotlin.collections.ArrayList
 import kotlin.properties.Delegates.observable
 
 
